@@ -24,14 +24,16 @@ contract ContractA {
 	address public sender;
 	uint public value;
 
-	function setVars(address conntractAddress, uint _num) external payable {
+	function setVars(address _contract, uint _num) external payable {
 		// [DELEGATE-CALL] Method 1 of doing a delegate call //
-		(bool success, bytes memory data) = conntractAddress.delegatecall(
+		(bool success, bytes memory data) = _contract.delegatecall(
             abi.encodeWithSignature("setVars(uint256)", _num)
         );
+	}
 
+	function setVars_alternative(address _contract, uint _num) external payable {
 		// [DELEGATE-CALL] Method 2 of doing a delegate call //
-		(bool success, bytes memory data) = conntractAddress.delegatecall(
+		(bool success, bytes memory data) = _contract.delegatecall(
 			abi.encodeWithSelector(ContractB.setVars.selector, _num)
 		);
 	}
