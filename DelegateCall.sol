@@ -1,5 +1,9 @@
 pragma solidity ^0.8.3;
 
+/// @notice delegatecall is a low level function similar to call. When contract A 
+/// executes delegatecall to contract B, B's code is executed with contract A'storage,
+/// msg.sender and msg.value.
+
 contract TestDelegateCall {
 	uint public num;
 	address public sender;
