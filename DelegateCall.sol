@@ -4,7 +4,10 @@ pragma solidity ^0.8.3;
 /// executes delegatecall to contract B, B's code is executed with contract A'storage,
 /// msg.sender and msg.value.
 
-contract TestDelegateCall {
+/// When a contract makes a function call using delegatecall it loads the function code
+/// from another contract and executed it as if it were its own code
+
+contract ContractB {
 	uint public num;
 	address public sender;
 	uint public value;
@@ -16,7 +19,7 @@ contract TestDelegateCall {
 	}
 }
 
-contract DelegateCall {
+contract ContractA {
 	uint public num;
 	address public sender;
 	uint public value;
@@ -29,12 +32,12 @@ contract DelegateCall {
 
 		// [DELEGATE-CALL] Method 2 of doing a delegate call //
 		_test.delegatecall(
-			abi.encodeWithSelector(TestDelegateCall.setVars.selector, _num)
+			abi.encodeWithSelector(ContractB.setVars.selector, _num)
 		);
 
 		// Add a way to keep track of the call
 		(bool success, bytes memory data) = _test.delegatecall(
-			abi.encodeWithSelector(TestDelegateCall.setVars.selector, _num)
+			abi.encodeWithSelector(ContractB.setVars.selector, _num)
 		);
 	}
 }
