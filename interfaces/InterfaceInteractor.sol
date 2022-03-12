@@ -1,3 +1,4 @@
+// This contract should allow me to call another contract without having the code.
 pragma solidity ^0.8.3;
 
 interface ICounter {
