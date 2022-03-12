@@ -25,7 +25,12 @@ contract DelegateCall {
 
 		// [DELEGATE-CALL] Method 2 of doing a delegate call //
 		_test.delegatecall(
-			abi.encodeWithSelect(TestDelegateCall.setVars.selector, _num);
+			abi.encodeWithSelector(TestDelegateCall.setVars.selector, _num)
+		);
+
+		// Add a way to keep track of the call
+		(bool success, bytes memory data) = _test.delegatecall(
+			abi.encodeWithSelector(TestDelegateCall.setVars.selector, _num)
 		);
 	}
 }
